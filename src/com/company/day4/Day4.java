@@ -33,7 +33,6 @@ public class Day4 {
         StringBuilder result = new StringBuilder();
         for (char c : name.toCharArray()){
                 result.append((char)((((c - 'a') + shift ) % 26) + 'a'));
-//            }
         }
         return result.toString();
     }
