@@ -8,6 +8,8 @@ class CommandParser {
     private static final String ROTATE_ROW = "rotate row";
     private static final String ROTATE_COLUMN = "rotate column";
     private static final String BY = "by";
+    private static final String X = "x";
+    private static final String EQ = "=";
 
     Command parseCommand(String strCommand) {
         CommandType commandType;
@@ -41,7 +43,8 @@ class CommandParser {
     private Map<String, Integer> parseRotateColumnParams(String strCommand) {
         Map<String, Integer> result = new HashMap<>();
         String paramStr = strCommand.substring(ROTATE_COLUMN.length() + 1);
-        result.put("x", Integer.parseInt(paramStr.substring(2, 3)));
+        int eqPos = paramStr.indexOf(EQ);
+        result.put("x", Integer.parseInt(paramStr.substring(eqPos + 1, paramStr.indexOf(' '))));
         result.put("y", Integer.parseInt(paramStr.substring(paramStr.indexOf(BY) + BY.length() + 1)));
         return result;
     }
@@ -57,8 +60,9 @@ class CommandParser {
     private Map<String, Integer> parseRectParams(String strCommand) {
         Map<String, Integer> result = new HashMap<>();
         String paramsStr = strCommand.substring(RECT.length() + 1);
-        result.put("x", Integer.parseInt(paramsStr.substring(0, 1)));
-        result.put("y", Integer.parseInt(paramsStr.substring(2)));
+        int xPos = paramsStr.indexOf(X);
+        result.put("x", Integer.parseInt(paramsStr.substring(0, xPos)));
+        result.put("y", Integer.parseInt(paramsStr.substring(xPos + 1)));
         return result;
     }
 
